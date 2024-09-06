@@ -1,0 +1,90 @@
+{block content}
+{block title}<h1 class="d-none">Editace</h1>{/block}
+
+<div class="container-sm bg-light vh-100">
+
+        <div class="row mb-5">
+            <!-- Postranní navigace -->
+            <div class="col-2">
+                <div class="list-group" id="side-nav">
+                    {foreach $carers as $carer}
+                        <a n:href="Edit:edit $carer->id" class="list-group-item list-group-item-action {if $carer->id == $actualId}active{/if} "  aria-current="true">{$carer->last_name} {$carer->first_name}</a>
+                    {/foreach}    
+                </div>
+            </div>
+                
+            <!-- Formuláře -->
+            <div class="col-10">
+                <h4>Základní údaje</h4>
+                <div class="row">
+
+                    <div class="col-md-6" id="" >
+                        {control editForm}
+
+
+                    </div>
+                    <div class="col-md-6" id="" >
+                    {control addressForm}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <hr class="my-0 py-0">
+                </div>
+                    
+                <!-- Pracovní doby -->
+                <div class="mb-3" id="" >
+                    <h4>Pracovní doba</h4>
+                    <div class="d-flex">
+
+                        <div class="text-nowrap">
+                            <ul class="list-unstyled fw-bold">
+                                <li class="my-1">Den:</li>
+                                <li class="mb-1">Čas od:</li>
+                                <li class="mb-2">Čas do:</li>
+                                <li class="mb-1">Denní úvazek:</li>
+
+                            </ul>
+                        </div>
+                        {control mondayForm}
+                        {control tuesdayForm}
+                        {control wednesdayForm}
+                        {control thursdayForm}
+                        {control fridayForm}
+
+                    </div>
+                        <hr class="my-0 py-0">
+                </div>
+                
+                <!-- Doktoří -->
+                <div class="row">
+
+                    <div class="col-md-6" id="" >
+                        <h4>Návštěvy u lékaře</h4>
+                        {control doctorsForm}
+                    </div>
+                    <div class="col-md-6" id="" >
+                        <h5>Tento týden:</h5>
+                        <table class="table table-hover table-sm table-bordered">
+                            <tbody>
+                                {if $doctors}
+                                {foreach $doctors as $doctor}
+                                    <tr>
+                                        <td>{$doctor->day}</td>
+                                        <td>{$doctor->time_from}</td>
+                                        <td>{$doctor->time_to}</td>
+                                        <td><a n:href="Edit:deleteDoctor id=>$doctor->id">Smazat</a></td>
+                                    </tr>
+
+                                {/foreach}
+                                {/if}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+</div>

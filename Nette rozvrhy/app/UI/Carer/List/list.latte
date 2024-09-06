@@ -1,0 +1,35 @@
+{block content}
+
+<div class="container-sm bg-light">
+    <h4 n:block=title>Podrobný přehled - pracovní doby</h4>
+    
+    {foreach ($list|group: carer_id) as $carer_id => $listItems}
+        <a n:href="Edit:edit $carer_id" class="link-dark text-decoration-none">   <h5>{$carers[$carer_id]->last_name} {$carers[$carer_id]->first_name}</h5></a>                        
+        <div class="row">
+            <div class="col-1">
+ 
+            </div>
+            <div class="col-6">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Den</th>
+                        <th>Čas od</th>
+                        <th>Čas do</th>
+                        <th>Denní úvazek</th>
+                    </tr>
+                        {foreach $listItems as $item}
+                            <tr>
+                                <td>{$item->day}</td>
+                                <td>{$item->time_from}</td>
+                                <td>{$item->time_to}</td>
+                                <td>{$item->day_hours}</td>
+                            </tr>
+                        {/foreach}
+                </table>
+            </div>
+        </div>
+    {/foreach}
+
+</div>
+
+

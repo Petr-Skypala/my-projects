@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{$basePath}/bootstrap/css/bootstrap.css">
+	<title>{ifset title}{include title|stripHtml}{/ifset}</title>
+        
+        <style>
+            form label {
+                font-weight: bold;
+            }
+        </style>
+</head>
+
+<body class="">
+    <header>
+
+        <!-- Hlavní navigační menu -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#obsah-navigacni-listy" aria-controls="obsah-navigacni-listy" aria-expanded="false" aria-label="Rozbalit navigaci">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-around" id="obsah-navigacni-listy">
+                <ul class="navbar-nav nav-pills ms-5 ">
+                    <li class="nav-item"><a n:href=":Home:default" class="nav-link text-white {if isLinkCurrent(':Home:*')}active{/if} ">Home</a></li>
+
+                    {if $user->isAllowed('carers', 'view')}
+                    <li class="nav-item"><a n:href=":Carer:Edit:edit" class="nav-link text-white {if isModuleCurrent('Carer')}active{/if}">Pečovatelky</a></li>
+                    {/if}
+
+                </ul>
+
+
+                <div class="d-flex">
+                <form class="d-flex my-2 my-lg-0">
+                    <input class="form-control me-2" type="search" placeholder="Vyhledat..." aria-label="Vyhledávání">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Vyhledat</button>
+                </form>
+                <ul class="navbar-nav ms-5">
+                    {if $user->isLoggedIn()}
+                    <li class="nav-item"><a n:href=":User:Sign:out" class="nav-link text-white ">Odhlásit</a></li>
+                    {else}
+                    <li class="nav-item"><a class="nav-link text-white" n:href=":User:Sign:in">Přihlásit</a></li>
+                    {/if}
+                </ul>
+                </div>   
+
+            </div>
+        </nav> 
+
+        <!-- Navigační menu pro pečovatelky -->
+        {if isModuleCurrent('Carer')}
+        <div class="container-sm pb-3 bg-light">
+            <ul class="nav nav-tabs" id="navigace" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link {if isLinkCurrent('Edit:*')}active{/if}" n:href="Edit:edit" role="tab" aria-controls="editace" aria-selected="true">Editace</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {if isLinkCurrent('Create:*')}active{/if}" n:href="Create:create" role="tab" aria-controls="nová pečovatelka" aria-selected="false">Nová pečovatelka</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {if isLinkCurrent('List:*')}active{/if}" n:href="List:list" role="tab" aria-controls="podrobný přehled" aria-selected="false">Podrobný přehled</a>
+                </li>
+            </ul>
+        </div>            
+        {/if}
+            
+    </header>
+        
+        <div class="container-sm">
+            <div n:foreach="$flashes as $flash" n:class="alert, $flash->type">{$flash->message}</div>
+        </div>
+        
+	{include content}
+        
+        
+	{block scripts}
+        
+           
+	<script src="https://unpkg.com/nette-forms@3"></script>
+        <script src="{$basePath}/bootstrap/js/bootstrap.bundle.js"></script>
+        <script>
+            
+        var triggerTabList = [].slice.call(document.querySelectorAll('#side-nav a'))
+            triggerTabList.forEach(function (triggerEl) {
+              var tabTrigger = new bootstrap.Tab(triggerEl)
+
+              triggerEl.addEventListener('click', function (event) {
+                
+                this.classList.add('active');
+                
+              })
+              
+             
+            })
+            
+            
+        </script>
+	{/block}
+</body>
+</html>
