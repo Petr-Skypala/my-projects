@@ -1,0 +1,44 @@
+{block content}
+
+<div class="container-sm bg-light">
+    <h4 n:block=title>Přehled - fixní služby</h4>
+    
+    {foreach ($list|group: client_id) as $client_id => $listItems}
+        <a n:href="Edit:edit $client_id" class="link-dark text-decoration-none">   <h5>{$clients[$client_id]->last_name} {$clients[$client_id]->first_name}</h5></a>                        
+        <div class="row">
+            <div class="col-1">
+ 
+            </div>
+            <div class="col-10">
+                <table class="table table-striped">
+                    <tr>
+                        <th style="width: 80px">Den</th>
+                        <th style="width: 200px">Název</th>
+                        <th style="width: 80px">Čas od</th>
+                        <th style="width: 80px">Čas do</th>
+                        <th>Pečovatelky</th>
+                    </tr>
+                        {foreach ($listItems|sort: by: day_order) as $item}
+                            <tr>
+                                <td >{$item->day}</td>
+                                <td>{$item->title}</td>
+                                <td>{$item->time_from}</td>
+                                <td>{$item->time_to}</td>
+                                <td>
+                                    {foreach ($carers|group: service_id) as $service_id => $listCarers}
+                                        
+                                    <span class="me-3" n:foreach="$listCarers as $carer" n:if="$service_id == $item->service_id">{$carer->last_name}</span>
+                                    
+                                    {/foreach}
+                                </td>                                
+                               
+                            </tr>
+                        {/foreach}
+                </table>
+            </div>
+        </div>
+    {/foreach}
+
+</div>
+
+

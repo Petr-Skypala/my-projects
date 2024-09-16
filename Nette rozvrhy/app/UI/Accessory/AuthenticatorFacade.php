@@ -4,6 +4,7 @@ namespace App\UI\Accessory;
 use Nette;
 use Nette\Security\SimpleIdentity;
 
+#[Requires(sameOrigin: true)]
 class AuthenticatorFacade implements Nette\Security\Authenticator
 {
 	public function __construct(

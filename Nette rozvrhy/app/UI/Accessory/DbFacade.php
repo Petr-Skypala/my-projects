@@ -4,6 +4,7 @@ namespace App\UI\Accessory;
 use Nette\Database\Explorer;
 use Exception;
 
+#[Requires(sameOrigin: true)]
 final class DbFacade
 {
     /**
@@ -70,6 +71,5 @@ final class DbFacade
     {
         return $this->database->table($table)->count('*');
     }
-
 
 }

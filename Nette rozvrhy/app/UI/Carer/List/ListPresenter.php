@@ -6,20 +6,38 @@ namespace App\UI\Carer\List;
 
 use Nette;
 use App\UI\Accessory\DbFacade;
-use App\UI\Carer\Edit\WorkHoursFormFactory;
+use App\UI\Accessory\DaysOrderFacade;
+use App\UI\Accessory\QueryFacade;
 
+#[Requires(sameOrigin: true)]
 final class ListPresenter extends Nette\Application\UI\Presenter
 {
     /**
      * Konstruktor
      * @param DbFacade $db
-     * @param WorkHoursFormFactory $workHours
+     * @param DaysOrderFacade $daysOrder
+     * @param QueryFacade $query
      */
     public function __construct(
         private DbFacade $db,
-        private WorkHoursFormFactory $workHours
+        private DaysOrderFacade $daysOrder,
+        private QueryFacade $query
     ) {
         parent::__construct();
+    }
+    /**
+     * Ověření uživatele
+     */
+    protected function startup()
+    {
+	parent::startup();
+	if (!$this->getUser()->isLoggedIn()) {
+		$this->redirect(':User:Sign:in');
+	}
+        if (!$this->getUser()->isAllowed('carers', 'view')) {
+                $this->flashMessage('Nemáte dostatečná práva.', 'alert-warning');
+                $this->redirect(':Home:default');
+	}
     }
     /**
      * Vloží do šablony pečovatelky a pracovní doby
@@ -27,8 +45,8 @@ final class ListPresenter extends Nette\Application\UI\Presenter
      */
     public function renderList(): void
     {
-        $this->template->list = $this->workHours->getAllItems();
-        
+        $list = $this->query->getWorkHours();
+        $this->template->list = $this->daysOrder->daysOrder($list);
         $this->template->carers = $this->db->getAll('carers');
     }
 }

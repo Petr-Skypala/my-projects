@@ -44,6 +44,11 @@ final class Template_96bfa80fb9 extends Latte\Runtime\Template
             form label {
                 font-weight: bold;
             }
+            
+            .alert {
+                margin-bottom: 0;
+                
+            }
         </style>
 </head>
 
@@ -60,22 +65,32 @@ final class Template_96bfa80fb9 extends Latte\Runtime\Template
             <div class="collapse navbar-collapse justify-content-around" id="obsah-navigacni-listy">
                 <ul class="navbar-nav nav-pills ms-5 ">
                     <li class="nav-item"><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link(':Home:default')) /* line 28 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link(':Home:default')) /* line 33 */;
 		echo '" class="nav-link text-white ';
-		if (($this->global->fn->isLinkCurrent)($this, ':Home:*')) /* line 28 */ {
+		if (($this->global->fn->isLinkCurrent)($this, ':Home:*')) /* line 33 */ {
 			echo 'active';
 		}
 		echo ' ">Home</a></li>
 
 ';
-		if ($user->isAllowed('carers', 'view')) /* line 30 */ {
+		if ($user->isAllowed('carers', 'view')) /* line 35 */ {
 			echo '                    <li class="nav-item"><a href="';
-			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link(':Carer:Edit:edit')) /* line 31 */;
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link(':Carer:Edit:edit')) /* line 36 */;
 			echo '" class="nav-link text-white ';
-			if (($this->global->fn->isModuleCurrent)($this, 'Carer')) /* line 31 */ {
+			if (($this->global->fn->isModuleCurrent)($this, 'Carer')) /* line 36 */ {
 				echo 'active';
 			}
 			echo '">Pečovatelky</a></li>
+';
+		}
+		if ($user->isAllowed('clients', 'view')) /* line 38 */ {
+			echo '                    <li class="nav-item"><a href="';
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link(':Client:Edit:edit')) /* line 39 */;
+			echo '" class="nav-link text-white ';
+			if (($this->global->fn->isModuleCurrent)($this, 'Client')) /* line 39 */ {
+				echo 'active';
+			}
+			echo '">Klienti</a></li>
 ';
 		}
 		echo '
@@ -89,14 +104,14 @@ final class Template_96bfa80fb9 extends Latte\Runtime\Template
                 </form>
                 <ul class="navbar-nav ms-5">
 ';
-		if ($user->isLoggedIn()) /* line 43 */ {
+		if ($user->isLoggedIn()) /* line 51 */ {
 			echo '                    <li class="nav-item"><a href="';
-			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link(':User:Sign:out')) /* line 44 */;
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link(':User:Sign:out')) /* line 52 */;
 			echo '" class="nav-link text-white ">Odhlásit</a></li>
 ';
-		} else /* line 45 */ {
+		} else /* line 53 */ {
 			echo '                    <li class="nav-item"><a href="';
-			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link(':User:Sign:in')) /* line 46 */;
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link(':User:Sign:in')) /* line 54 */;
 			echo '" class="nav-link text-white">Přihlásit</a></li>
 ';
 		}
@@ -108,50 +123,109 @@ final class Template_96bfa80fb9 extends Latte\Runtime\Template
 
         <!-- Navigační menu pro pečovatelky -->
 ';
-		if (($this->global->fn->isModuleCurrent)($this, 'Carer')) /* line 55 */ {
+		if (($this->global->fn->isModuleCurrent)($this, 'Carer')) /* line 63 */ {
 			echo '        <div class="container-sm pb-3 bg-light">
             <ul class="nav nav-tabs" id="navigace" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a href="';
-			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Edit:edit')) /* line 59 */;
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Edit:edit')) /* line 67 */;
 			echo '" class="nav-link ';
-			if (($this->global->fn->isLinkCurrent)($this, 'Edit:*')) /* line 59 */ {
+			if (($this->global->fn->isLinkCurrent)($this, 'Edit:*')) /* line 67 */ {
 				echo 'active';
 			}
 			echo '" role="tab" aria-controls="editace" aria-selected="true">Editace</a>
                 </li>
                 <li class="nav-item">
                     <a href="';
-			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Create:create')) /* line 62 */;
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('List:list')) /* line 70 */;
 			echo '" class="nav-link ';
-			if (($this->global->fn->isLinkCurrent)($this, 'Create:*')) /* line 62 */ {
-				echo 'active';
-			}
-			echo '" role="tab" aria-controls="nová pečovatelka" aria-selected="false">Nová pečovatelka</a>
-                </li>
-                <li class="nav-item">
-                    <a href="';
-			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('List:list')) /* line 65 */;
-			echo '" class="nav-link ';
-			if (($this->global->fn->isLinkCurrent)($this, 'List:*')) /* line 65 */ {
+			if (($this->global->fn->isLinkCurrent)($this, 'List:*')) /* line 70 */ {
 				echo 'active';
 			}
 			echo '" role="tab" aria-controls="podrobný přehled" aria-selected="false">Podrobný přehled</a>
                 </li>
+                <li class="nav-item">
+                    <a href="';
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Doctors:doctors')) /* line 73 */;
+			echo '" class="nav-link ';
+			if (($this->global->fn->isLinkCurrent)($this, 'Doctors:*')) /* line 73 */ {
+				echo 'active';
+			}
+			echo '" role="tab" aria-controls="podrobný přehled" aria-selected="false">Návštěvy u lékařů</a>
+                </li>
+                <li class="nav-item">
+                    <a href="';
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Create:create')) /* line 76 */;
+			echo '" class="nav-link ';
+			if (($this->global->fn->isLinkCurrent)($this, 'Create:*')) /* line 76 */ {
+				echo 'active';
+			}
+			echo '" role="tab" aria-controls="nová pečovatelka" aria-selected="false">Nová pečovatelka</a>
+                </li>
             </ul>
         </div>            
-';
+        ';
 		}
-		echo '            
+		echo ' <!-- Pečovatelky -->
+
+        <!-- Navigační menu pro klienti -->
+';
+		if (($this->global->fn->isModuleCurrent)($this, 'Client')) /* line 83 */ {
+			echo '        <div class="container-sm pb-3 bg-light">
+            <ul class="nav nav-tabs" id="navigace" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a href="';
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Edit:edit')) /* line 87 */;
+			echo '" class="nav-link ';
+			if (($this->global->fn->isLinkCurrent)($this, 'Edit:*') || ($this->global->fn->isLinkCurrent)($this, 'Service:*')) /* line 87 */ {
+				echo 'active';
+			}
+			echo '" role="tab" aria-controls="editace" aria-selected="true">Editace</a>
+                </li>
+                <li class="nav-item">
+                    <a href="';
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('List:list')) /* line 90 */;
+			echo '" class="nav-link ';
+			if (($this->global->fn->isLinkCurrent)($this, 'List:list')) /* line 90 */ {
+				echo 'active';
+			}
+			echo '" role="tab" aria-controls="podrobný přehled" aria-selected="false">Fixní služby</a>
+                </li>
+                <li class="nav-item">
+                    <a href="';
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('List:float')) /* line 93 */;
+			echo '" class="nav-link ';
+			if (($this->global->fn->isLinkCurrent)($this, 'List:float')) /* line 93 */ {
+				echo 'active';
+			}
+			echo '" role="tab" aria-controls="podrobný přehled" aria-selected="false">Plovoucí služby</a>
+                </li>
+                <li class="nav-item">
+                    <a href="';
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Create:create')) /* line 96 */;
+			echo '" class="nav-link ';
+			if (($this->global->fn->isLinkCurrent)($this, 'Create:*')) /* line 96 */ {
+				echo 'active';
+			}
+			echo '" role="tab" aria-controls="podrobný přehled" aria-selected="false">Nový klient</a>
+                </li>
+            </ul>
+        </div>            
+        ';
+		}
+		echo ' <!-- Klienti -->
+
+        
+            
     </header>
         
-        <div class="container-sm">
+        <div class="container-sm bg-light">
 ';
-		foreach ($flashes as $flash) /* line 74 */ {
+		foreach ($flashes as $flash) /* line 107 */ {
 			echo '            <div';
-			echo ($ʟ_tmp = array_filter(['alert', $flash->type])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 74 */;
+			echo ($ʟ_tmp = array_filter(['alert', $flash->type])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 107 */;
 			echo '>';
-			echo LR\Filters::escapeHtmlText($flash->message) /* line 74 */;
+			echo LR\Filters::escapeHtmlText($flash->message) /* line 107 */;
 			echo '</div>
 ';
 
@@ -160,11 +234,11 @@ final class Template_96bfa80fb9 extends Latte\Runtime\Template
 		echo '        </div>
         
 ';
-		$this->renderBlock('content', [], 'html') /* line 77 */;
+		$this->renderBlock('content', [], 'html') /* line 110 */;
 		echo '        
         
 ';
-		$this->renderBlock('scripts', get_defined_vars()) /* line 80 */;
+		$this->renderBlock('scripts', get_defined_vars()) /* line 113 */;
 		echo '</body>
 </html>
 ';
@@ -176,7 +250,7 @@ final class Template_96bfa80fb9 extends Latte\Runtime\Template
 		extract($this->params);
 
 		if (!$this->getReferringTemplate() || $this->getReferenceType() === 'extends') {
-			foreach (array_intersect_key(['flash' => '74'], $this->params) as $ʟ_v => $ʟ_l) {
+			foreach (array_intersect_key(['flash' => '107'], $this->params) as $ʟ_v => $ʟ_l) {
 				trigger_error("Variable \$$ʟ_v overwritten in foreach on line $ʟ_l");
 			}
 		}
@@ -184,7 +258,7 @@ final class Template_96bfa80fb9 extends Latte\Runtime\Template
 	}
 
 
-	/** {block scripts} on line 80 */
+	/** {block scripts} on line 113 */
 	public function blockScripts(array $ʟ_args): void
 	{
 		extract($this->params);
@@ -195,7 +269,7 @@ final class Template_96bfa80fb9 extends Latte\Runtime\Template
            
 	<script src="https://unpkg.com/nette-forms@3"></script>
         <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 84 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 117 */;
 		echo '/bootstrap/js/bootstrap.bundle.js"></script>
         <script>
             
@@ -211,8 +285,7 @@ final class Template_96bfa80fb9 extends Latte\Runtime\Template
               
              
             })
-            
-            
+
         </script>
 ';
 	}

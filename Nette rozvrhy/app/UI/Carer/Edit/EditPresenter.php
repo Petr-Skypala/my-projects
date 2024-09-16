@@ -1,5 +1,7 @@
 <?php
 
+// Pečovatelky
+
 declare(strict_types=1);
 
 namespace App\UI\Carer\Edit;
@@ -8,8 +10,11 @@ use Nette;
 use Nette\Application\UI\Form;
 use App\UI\Accessory\DbFacade;
 use App\UI\Carer\Edit\WorkHoursFormFactory;
+use App\UI\Carer\Edit\CarersFormFactory;
 use App\UI\Addresses\AddressesFormFactory;
+use Exception;
 
+#[Requires(sameOrigin: true)]
 final class EditPresenter extends Nette\Application\UI\Presenter
 {
     /**
@@ -23,88 +28,134 @@ final class EditPresenter extends Nette\Application\UI\Presenter
         private DbFacade $db,
         private WorkHoursFormFactory $workHours,
         private AddressesFormFactory $addresses,
-        private DoctorsFormFactory $doctors
+        private DoctorsFormFactory $doctors,
+        private CarersFormFactory $carers
     )  {
         parent::__construct();
     }
 
-    private int $actualId = 0;
+    public int $actualId = 0;
     private bool $isAddress = true;
-    private $actualCarer;
     private $doctorsList;
+
     /**
-     * Odešle do šablony edit.latte všechny pečovatelky a id aktuální pečovatelky
+     * Ověření uživatele
+     */
+    protected function startup()
+    {
+	parent::startup();
+	if (!$this->getUser()->isLoggedIn()) {
+		$this->redirect(':User:Sign:in');
+	}
+        if (!$this->getUser()->isAllowed('carers', 'edit')) {
+                $this->flashMessage('Nemáte dostatečná práva.', 'alert-warning');
+                $this->redirect(':Home:default');
+	}
+    }
+    
+    /**
+     * Vykreslí a aktualizuje formuláře
+     * @param type $carerId
      * @return void
      */
-    public function renderEdit(): void
+    public function actionEdit($carerId = null): void
     {
-        $this->template->carers = $this->db->getAll('carers')
-                
-                ->order('last_name');
-            
-        // Předá do šablony id aktuálního blogu kvůli označení .active    
-        $this->template->actualId = $this->actualId;
-        // Předá do šablony přehled doktorů dané pečovatelky
-        $this->template->doctors = $this->doctorsList;
-
         
-    }    
+        if ($carerId) {
+            try {
+                $carer = $this->db->getById('carers', $carerId);
+            } catch (Exception $e) {
+                    $this->flashMessage('Záznam nenalezen', 'alert alert-warning');
+                    $this->redirect('Edit:edit');
+            }
+
+            // Základní údaje
+            $this->getComponent('editForm')
+                    ->setDefaults($carer->toArray());
+
+            // Adresa
+            $address = $this->db->getAll('addresses')
+                        ->where('person_id', $carerId)->fetch();
+
+            if ($address) { 
+                // bool pro tlačítko Vložit / Smazat adresu
+                $this->isAddress = true; 
+
+                $this->getComponent('addressForm')
+                    ->setDefaults($address->toArray());
+            } else {
+
+                $this->isAddress = false;
+            }
+
+            // Pracovní doby po dnech
+            $monday = $this->workHours->getDay('Pondělí', $carer);   
+            $tuesday = $this->workHours->getDay('Úterý', $carer);
+            $wednesday = $this->workHours->getDay('Středa', $carer);
+            $thursday = $this->workHours->getDay('Čtvrtek', $carer);
+            $friday = $this->workHours->getDay('Pátek', $carer);
+
+            if ($monday) {
+            $this->getComponent('mondayForm')
+                    ->setDefaults($monday->toArray());
+            }
+            if ($tuesday) {
+            $this->getComponent('tuesdayForm')
+                    ->setDefaults($tuesday->toArray());
+            }
+
+            if ($wednesday) {
+            $this->getComponent('wednesdayForm')
+                    ->setDefaults($wednesday->toArray());
+            }
+
+            if ($thursday) {
+            $this->getComponent('thursdayForm')
+                    ->setDefaults($thursday->toArray());
+            }
+
+            if ($friday) {
+            $this->getComponent('fridayForm')
+                    ->setDefaults($friday->toArray());
+            }
+
+            // Doktoři
+            $doctorForm = [
+                'carer_id' => $carerId,
+            ];
+            $this->getComponent('doctorsForm')
+                    ->setDefaults($doctorForm);
+
+            // Seznam doktorů pro šablonu
+            $this->doctorsList = $this->doctors->getDoctors($carer);
+
+            // Aktuální id pečovatelky pro šablonu
+            $this->actualId = (int)$carerId;
+        }
+       
+    }
     /**
-     * Vytvoří formulář pro editaci údajů pečovatelky - jméno a týdenní pracovní doba
+     * Vymaže vybranou návštěvu u lékaře
+     * @param int $id
+     * @return void
+     */
+    public function actionDeleteDoctor(int $id): void
+    {
+        $doctor = $this->db->getById('doctors', $id);
+        $this->db->deleteById('doctors', $id);
+        $this->redirect('Edit:edit', $doctor['carer_id']);
+    }
+
+    /**
+     * Vytvoří formulář pro základní údaje
      * @return Form
      */
     protected function createComponentEditForm(): Form
     {
-	$form = new Form;
-        
-	$form->addText('first_name', 'Jméno:')
-		->setRequired()
-                ->setHtmlAttribute('class', 'form-control form-control-sm')
-                ->addRule($form::Pattern, 'Jméno musí obsahovat pouze písmena', '[^+=\-%$<>\\\/?!&@;`\'"()[\]{}*\^#§]*')
-                ->setMaxLength(30);
-	$form->addText('last_name', 'Příjmení:')
-		->setRequired()
-                ->setHtmlAttribute('class', 'form-control form-control-sm')
-                ->addRule($form::Pattern, 'Jméno musí obsahovat pouze písmena', '[^+=\-%$<>\\\/?!&@;`\'"()[\]{}*\^#§]*')
-                ->setMaxLength(40);
-        $form->addInteger('week_hours', 'Týdenní úvazek:')
-                ->setHtmlAttribute('class', 'form-control form-control-sm')
-                ->addRule($form::Pattern, 'Pole musí obsahovat pouze číslici', '[^+=\-%$<>\\\/?!&@;`\'"()[\]{}*\^#§]*')
-                ->setRequired()
-                ->addRule($form::Range, 'Týdenní úvazek musí být v rozsahu od %d do %d.', [0, Week_hours]);
-        $form->addInteger('id')
-                ->setHtmlType('hidden');
-
-	$form->addSubmit('send', 'Uložit')
-                ->setHtmlAttribute('class', ' btn btn-sm btn-outline-secondary');
-
-        $form->onSuccess[] = $this->editFormSucceeded(...);
-
-	return $form;
+        return $this->carers->create();
     }
     /**
-     * Zpracuje formulář údajů o pečovatelce
-     * @param array $data
-     * @return void
-     */
-    private function editFormSucceeded(array $data): void
-    {
-        $carerId = $data['id'];
-        if (!$carerId)
-            {
-                $this->flashMessage("Záznam nenalezen", 'alert-warning');
-                $this->redirect('Edit:edit');
-            }
-        $carer = $this->db->getById('carers', $carerId);
-        $carer->update($data);
-
-        //$this->flashMessage("Záznam byl upraven", 'alert-success');
-        //$this->redirect('Blogy:edit');
-        $this->actualId = $carerId;
-        
-    }
-    /**
-     * Vytvoří formulář pro adresu, která patří pečovatelce
+     * Vytvoří formulář pro adresu pečovatelky
      * @return Form
      */
     protected function createComponentAddressForm(): Form
@@ -119,100 +170,7 @@ final class EditPresenter extends Nette\Application\UI\Presenter
     {
         return $this->doctors->create();
     }
-
-    /**
-     * Vykreslí a aktualizuje formuláře
-     * @param type $carerId
-     * @return void
-     */
-    public function actionEdit($carerId = null): void
-    {
-        
-        if ($carerId != null) {
-
-        if ($carerId) {
-        $carer = $this->db->getById('carers', $carerId);
-
-        $address = $this->db->getAll('addresses')
-                    ->where('person_id', $carerId)->fetch();
-        if ($address) {
-        $this->isAddress = true;
-        } else
-        {
-            $this->isAddress = false;
-        }
-        // Pracovní doby
-        $monday = $this->workHours->getDay('Pondělí', $carer);   
-        $tuesday = $this->workHours->getDay('Úterý', $carer);
-        $wednesday = $this->workHours->getDay('Středa', $carer);
-        $thursday = $this->workHours->getDay('Čtvrtek', $carer);
-        $friday = $this->workHours->getDay('Pátek', $carer);
-        
-        // Doktoří
-        $doctorForm = [
-            'carer_id' => $carerId,
-        ];
-        $this->doctorsList = $this->doctors->getDoctors($carer);
-        
-        // Nastavení dat ve formuláři
-	if (!$carer) {
-		$this->error('Did not found');
-	}
-        // Základní údaje
-	$this->getComponent('editForm')
-		->setDefaults($carer->toArray());
-        // Adresy
-        if ($address) {
-        $this->getComponent('addressForm')
-		->setDefaults($address->toArray());
-        }
-        // Pracovní doby
-        if ($monday) {
-        $this->getComponent('mondayForm')
-		->setDefaults($monday->toArray());
-        }
-        if ($tuesday) {
-        $this->getComponent('tuesdayForm')
-		->setDefaults($tuesday->toArray());
-        }
-
-        if ($wednesday) {
-        $this->getComponent('wednesdayForm')
-		->setDefaults($wednesday->toArray());
-        }
-
-        if ($thursday) {
-        $this->getComponent('thursdayForm')
-		->setDefaults($thursday->toArray());
-        }
-
-        if ($friday) {
-        $this->getComponent('fridayForm')
-		->setDefaults($friday->toArray());
-        }
-
-        $this->getComponent('doctorsForm')
-                ->setDefaults($doctorForm);
-       
-        }        
-        $this->actualCarer = $carer->toArray();
-
-        $this->actualId = (int)$carerId;
-
-        }
-    }
-    /**
-     * Vymaže vybranou návštěvu u lékaře
-     * @param int $id
-     * @return void
-     */
-    public function actionDeleteDoctor(int $id): void
-    {
-        $doctor = $this->db->getById('doctors', $id);
-        $this->db->deleteById('doctors', $id);
-        $this->redirect('Edit:edit', $doctor['carer_id']);
-    }
-        
+    
             // Komponenty pracovní doby:
     /**
      * Vytvoří formulář pro pondělí
@@ -254,6 +212,20 @@ final class EditPresenter extends Nette\Application\UI\Presenter
     {
         return $this->workHours->create('Pátek', $this->actualId);
     }
+    
+    /**
+     * Odešle data do šablony
+     * @return void
+     */
+    public function renderEdit(): void
+    {
+        $this->template->carers = $this->db->getAll('carers')
+                                ->order('last_name');
 
+        // Předá do šablony id aktuální pečovatelky (.active)
+        $this->template->actualId = $this->actualId;
+        // Předá do šablony přehled doktorů pečovatelky
+        $this->template->doctors = $this->doctorsList;
+    }    
     
 }

@@ -1,0 +1,150 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0" version="24.7.14">
+  <diagram name="Stránka-1" id="gEXkr_ALOzQIvAvqlWIY">
+    <mxGraphModel dx="1426" dy="755" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-1" value="Presentery" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="250" y="84" width="900" height="660" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-2" value="CarersPresenter:ActionAdd" style="swimlane;whiteSpace=wrap;html=1;" parent="-n-EJnuy1YFHEjFc1Cr5-1" vertex="1">
+          <mxGeometry x="300" y="20" width="370" height="640" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="-n-EJnuy1YFHEjFc1Cr5-2" source="-n-EJnuy1YFHEjFc1Cr5-12" target="-n-EJnuy1YFHEjFc1Cr5-40" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-12" value="Vloží do tabulky M:N vazbu mezi službou a pečovatelkou" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" parent="-n-EJnuy1YFHEjFc1Cr5-2" vertex="1">
+          <mxGeometry x="190" y="447" width="150" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="-n-EJnuy1YFHEjFc1Cr5-2" source="-n-EJnuy1YFHEjFc1Cr5-17" target="-n-EJnuy1YFHEjFc1Cr5-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="-n-EJnuy1YFHEjFc1Cr5-2" source="-n-EJnuy1YFHEjFc1Cr5-17" target="-n-EJnuy1YFHEjFc1Cr5-27" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-17" value="" style="rhombus;" parent="-n-EJnuy1YFHEjFc1Cr5-2" vertex="1">
+          <mxGeometry x="250" y="336" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-16" value="Přidat pečovatelku&lt;div&gt;ke službě&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="-n-EJnuy1YFHEjFc1Cr5-2" vertex="1">
+          <mxGeometry x="-120" y="300" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-20" value="Pečovatelka ještě&lt;div&gt;není přiřazená&lt;/div&gt;&lt;div&gt;ke službě&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="-n-EJnuy1YFHEjFc1Cr5-2" vertex="1">
+          <mxGeometry x="150" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="-n-EJnuy1YFHEjFc1Cr5-2" source="-n-EJnuy1YFHEjFc1Cr5-27" target="-n-EJnuy1YFHEjFc1Cr5-34" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-27" value="Vypiš zprávu že&lt;div&gt;je pečovatelka&lt;/div&gt;&lt;div&gt;už přiřazená&lt;/div&gt;" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" parent="-n-EJnuy1YFHEjFc1Cr5-2" vertex="1">
+          <mxGeometry x="195" y="160" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-29" value="Pečovatelka je již&lt;div&gt;přiřazená ke&amp;nbsp;&lt;/div&gt;&lt;div&gt;službě&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="-n-EJnuy1YFHEjFc1Cr5-2" vertex="1">
+          <mxGeometry x="140" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="-n-EJnuy1YFHEjFc1Cr5-2" source="-n-EJnuy1YFHEjFc1Cr5-30" target="-n-EJnuy1YFHEjFc1Cr5-17" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-30" value="Zjisti, jestli už není&lt;div&gt;pečovatelka na&lt;/div&gt;&lt;div&gt;službě&lt;/div&gt;" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" parent="-n-EJnuy1YFHEjFc1Cr5-2" vertex="1">
+          <mxGeometry x="30" y="322" width="140" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-34" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" parent="-n-EJnuy1YFHEjFc1Cr5-2" vertex="1">
+          <mxGeometry x="250" y="55" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-36" value="Přesměruje na&lt;div&gt;editaci stejné služby&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="-n-EJnuy1YFHEjFc1Cr5-2" vertex="1">
+          <mxGeometry x="120" y="40" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-40" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" parent="-n-EJnuy1YFHEjFc1Cr5-2" vertex="1">
+          <mxGeometry x="250" y="560" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-42" value="Přesměruje na&lt;div&gt;editaci stejné služby&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="-n-EJnuy1YFHEjFc1Cr5-2" vertex="1">
+          <mxGeometry x="120" y="545" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-3" value="CarersPresenter:ActionRemove" style="swimlane;whiteSpace=wrap;html=1;" parent="-n-EJnuy1YFHEjFc1Cr5-1" vertex="1">
+          <mxGeometry x="670" y="20" width="230" height="640" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="-n-EJnuy1YFHEjFc1Cr5-3" source="-n-EJnuy1YFHEjFc1Cr5-43" target="-n-EJnuy1YFHEjFc1Cr5-46" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-43" value="Vymaže z tabulky M:N&lt;div&gt;vazbu služba / pečovatelka&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" parent="-n-EJnuy1YFHEjFc1Cr5-3" vertex="1">
+          <mxGeometry x="60" y="310" width="140" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-46" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" parent="-n-EJnuy1YFHEjFc1Cr5-3" vertex="1">
+          <mxGeometry x="115" y="190" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-48" value="Přesměruje na&lt;div&gt;editaci stejné služby&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="-n-EJnuy1YFHEjFc1Cr5-3" vertex="1">
+          <mxGeometry x="65" y="140" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-6" value="ServicePresenter:edit.latte" style="swimlane;whiteSpace=wrap;html=1;" parent="-n-EJnuy1YFHEjFc1Cr5-1" vertex="1">
+          <mxGeometry y="20" width="300" height="640" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="-n-EJnuy1YFHEjFc1Cr5-6" source="-n-EJnuy1YFHEjFc1Cr5-4" target="-n-EJnuy1YFHEjFc1Cr5-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-4" value="" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" parent="-n-EJnuy1YFHEjFc1Cr5-6" vertex="1">
+          <mxGeometry x="130" y="40" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="-n-EJnuy1YFHEjFc1Cr5-6" source="-n-EJnuy1YFHEjFc1Cr5-7" target="-n-EJnuy1YFHEjFc1Cr5-22" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-7" value="Vykresli formulář / seznam pečovatelek: &quot;Přidat pečovatelky&quot;" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" parent="-n-EJnuy1YFHEjFc1Cr5-6" vertex="1">
+          <mxGeometry x="75" y="110" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-21" value="Načtení editace&amp;nbsp;&lt;div&gt;(detailu) služby&lt;/div&gt;&lt;div&gt;Service:edit / id&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="-n-EJnuy1YFHEjFc1Cr5-6" vertex="1">
+          <mxGeometry x="170" y="25" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-22" value="Vykreslí seznam již přiřazených pečovatelek" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;" parent="-n-EJnuy1YFHEjFc1Cr5-6" vertex="1">
+          <mxGeometry x="75" y="210" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-13" value="" style="rhombus;" parent="-n-EJnuy1YFHEjFc1Cr5-6" vertex="1">
+          <mxGeometry x="130" y="336" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="-n-EJnuy1YFHEjFc1Cr5-6" source="-n-EJnuy1YFHEjFc1Cr5-22" target="-n-EJnuy1YFHEjFc1Cr5-13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-45" value="Odebrat pečovatelku&lt;div&gt;ze služby&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="-n-EJnuy1YFHEjFc1Cr5-6" vertex="1">
+          <mxGeometry x="150" y="430" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="-n-EJnuy1YFHEjFc1Cr5-1" source="-n-EJnuy1YFHEjFc1Cr5-13" target="-n-EJnuy1YFHEjFc1Cr5-30" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="-n-EJnuy1YFHEjFc1Cr5-1" source="-n-EJnuy1YFHEjFc1Cr5-13" target="-n-EJnuy1YFHEjFc1Cr5-43" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="145" y="640" />
+              <mxPoint x="800" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="-n-EJnuy1YFHEjFc1Cr5-9" target="-n-EJnuy1YFHEjFc1Cr5-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="280" y="209" />
+              <mxPoint x="280" y="244" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-9" value="Postranní svislý seznam se&amp;nbsp;&lt;div&gt;skrolbarem. Jednotlivé pečovatelky&lt;/div&gt;&lt;div&gt;budou aktivní odkaz&lt;/div&gt;&lt;div&gt;na ActionAdd&lt;/div&gt;&lt;div&gt;Přiřazené pečovatelky v druhé&lt;/div&gt;&lt;div&gt;části. Aktivní odkaz na&amp;nbsp;&lt;/div&gt;&lt;div&gt;ActionRemove&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="20" y="154" width="210" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-n-EJnuy1YFHEjFc1Cr5-37" target="-n-EJnuy1YFHEjFc1Cr5-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="280" y="364" />
+              <mxPoint x="280" y="244" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="-n-EJnuy1YFHEjFc1Cr5-37" target="-n-EJnuy1YFHEjFc1Cr5-22" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="280" y="364" />
+              <mxPoint x="280" y="334" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-n-EJnuy1YFHEjFc1Cr5-37" value="renderEdit:&lt;div&gt;vezme z databáze všechny&lt;/div&gt;&lt;div&gt;pečovatelky a dále&lt;/div&gt;&lt;div&gt;všechny pečovatelky&amp;nbsp;&lt;/div&gt;&lt;div&gt;přiřazené na službě&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="40" y="314" width="170" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

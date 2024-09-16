@@ -1,0 +1,36 @@
+{block content}
+
+<div class="container-sm bg-light">
+    <h4 n:block=title>Návštěvy u lékařů</h4>
+
+    <!-- Seskupí návštěvy u lékařů podle id pečovatelky -->
+    {foreach ($doctors|group: carer_id) as $carer_id => $items} 
+        <a n:href="Edit:edit $carer_id" class="link-dark text-decoration-none">   <h5>{$carers[$carer_id]->last_name} {$carers[$carer_id]->first_name}</h5></a>                        
+        <div class="row">
+            <div class="col-1">
+ 
+            </div>
+            <div class="col-6">
+                <table class="table table-striped">
+                    <tr>
+                        <th style="width: 180px">Den</th>
+                        <th style="width: 200px">Čas od</th>
+                        <th style="width: 200px">Čas do</th>
+                    </tr>
+                        <!-- Vypíše všechny doktory pečovatelky -->
+                        {foreach ($items|sort: by: time_from|sort: by: day_order) as $item} 
+                            <tr>
+                                <td>{$item->day}</td>
+                                <td>{$item->time_from}</td>
+                                <td>{$item->time_to}</td>
+                            </tr>
+                        {/foreach}
+                </table>
+            </div>
+        </div>
+    {/foreach}
+
+</div>
+
+
+

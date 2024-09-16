@@ -10,6 +10,7 @@ use Nette\Security\Passwords;
 use App\UI\Accessory\AuthenticatorFacade;
 use App\UI\Accessory\DbFacade;
 
+#[Requires(sameOrigin: true)]
 final class SignPresenter extends Nette\Application\UI\Presenter
 {
     /**
@@ -58,7 +59,7 @@ final class SignPresenter extends Nette\Application\UI\Presenter
 		$identity = $this->authenticator->authenticate($data['username'], $data['password']);
                 $this->getUser()->login($identity);
                 
-                
+                $this->flashMessage('Přihlášení proběhlo úspěšně', 'alert-success');
 		$this->redirect(':Home:');
 
 	} catch (Nette\Security\AuthenticationException $e) {

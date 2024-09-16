@@ -9,6 +9,7 @@ use Nette\Application\UI\Control;
 use App\UI\Accessory\DbFacade;
 use Nette\Database\Explorer;
 
+#[Requires(sameOrigin: true)]
 final class AddressesFormFactory extends Control
 {
     /**
@@ -62,6 +63,7 @@ final class AddressesFormFactory extends Control
                 ->setHtmlAttribute('class', ' btn btn-sm btn-outline-secondary');
         } else {
         $form->addSubmit('delete', 'Smazat')
+                ->setHtmlAttribute('onclick', 'return confirm(\'Opravdu chcete adresu smazat?\')')                
                 ->setHtmlAttribute('class', ' btn btn-sm btn-outline-secondary');
         }
         $form->onSuccess[] = $this->addressFormSucceeded(...);
@@ -83,24 +85,37 @@ final class AddressesFormFactory extends Control
             if ($form['send']->isSubmittedBy()) {
                 // Vloží novou adresu do databáze a vrátí její ID
                 $newId =  $this->database->table('addresses')->insert($data)->getPrimary();
+                // Vloží nové kombinace adres pro časy přejezdů
                 $this->travelTimes->insertJourneys($newId);
 
-                if ($data['person_id'] < 10000 ) {
+                if ($data['person_id'] < 10000 ) { // Rozliší osobu podle id - pečovatelka / klient a přesměruje
 
                    $form->getPresenter()->redirect(':Carer:Edit:edit', $data['person_id']);
-                } 
-
+                } else {
+                    $form->getPresenter()->redirect(':Client:Edit:edit', $data['person_id']);
+                }
             }
+
         // Tlačítko smazat
         } elseif 
            (isset ($form['delete'])) {
                if ($form['delete']->isSubmittedBy()) {
+                   
+                    // Kontrola jestli je vybraná osoba
+                    if ($data['person_id'] == 0)  {
+                        
+                            $form->getPresenter()->flashMessage("Vyberte osobu", 'alert-warning');
+                            $form->getPresenter()->redirect('Edit:edit');
+                    }
+                   
                     // Vymaže adresu z databáze 
                     $this->db->deleteById('addresses', $data['id']);
 
-                    if ($data['person_id'] < 10000 ) {
+                    if ($data['person_id'] < 10000 ) { // Rozliší osobu podle id - pečovatelka / klient a přesměruje
 
                        $form->getPresenter()->redirect(':Carer:Edit:edit', $data['person_id']);
+                   } else {
+                       $form->getPresenter()->redirect(':Client:Edit:edit', $data['person_id']);
                    }
                }
         }

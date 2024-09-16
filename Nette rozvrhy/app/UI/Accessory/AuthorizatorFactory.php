@@ -3,6 +3,7 @@ namespace App\UI\Accessory;
 
 use Nette\Security\Permission;
 
+#[Requires(sameOrigin: true)]
 class AuthorizatorFactory
 {
         /**
@@ -13,17 +14,18 @@ class AuthorizatorFactory
 	{
 		$acl = new Permission;
 		$acl->addRole('guest');
-                $acl->addRole('Pečovatel/ka');
+                $acl->addRole('Pečovatel/ka', 'guest');
                 $acl->addRole('Koordinátor/ka', 'Pečovatel/ka');
                 $acl->addRole('admin', 'Koordinátor/ka');
                 
 		$acl->addResource('carers');
-                $acl->addResource('blogy');
+                $acl->addResource('clients');
                 $acl->addResource('users');
                 
-                $acl->allow('guest', 'carers', 'view');
-		$acl->allow('Pečovatel/ka', ['carers', 'blogy'], 'view');
-                $acl->allow('Koordinátor/ka', 'users', 'view');
+                // Pečovatelka může nahlížet na přehledy
+		$acl->allow('Pečovatel/ka', ['carers', 'clients'], 'view');
+                // Koordinátorka může editovat
+                $acl->allow('Koordinátor/ka', ['carers', 'clients'], 'edit');
                 
 		return $acl;
 	}

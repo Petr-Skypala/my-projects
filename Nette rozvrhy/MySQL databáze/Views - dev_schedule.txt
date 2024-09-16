@@ -1,0 +1,28 @@
+
+CREATE VIEW `fix_services` AS
+SELECT `services`.`id` AS `service_id`, `services`.`day` AS `day`, `services`.`title` AS `title`, TIME_FORMAT(`services`.`time_from`,'%H:%i') AS `time_from`, TIME_FORMAT(`services`.`time_to`,'%H:%i') AS `time_to`, `services`.`client_id` AS `client_id`, `clients`.`last_name` AS `last_name`, `clients`.`first_name` AS `first_name` FROM `services` 
+JOIN `clients` ON `clients`.`id` = `services`.`client_id` 
+WHERE `services`.`floating` = 0 
+ORDER BY `clients`.`last_name`
+
+CREATE VIEW `float_services` AS
+SELECT `float_days`.`float_days` AS `float_days`, `services`.`title` AS `title`, `float_days`.`service_id` AS `service_id`, `services`.`float_lenght` AS `float_lenght`, TIME_FORMAT(`services`.`float_from`,'%H:%i') AS `float_from`, TIME_FORMAT(`services`.`float_to`,'%H:%i') AS `float_to`, `services`.`client_id` AS `client_id`, `clients`.`last_name` AS `last_name`, `clients`.`first_name` AS `first_name` FROM `float_days` 
+JOIN `services` ON `services`.`id` = `float_days`.`service_id` 
+JOIN `clients` ON `clients`.`id` = `services`.`client_id` 
+WHERE `services`.`floating` = 1 
+ORDER BY `clients`.`last_name`
+
+CREATE VIEW `get_doctors` AS
+SELECT `doctors`.`day` AS `day`, TIME_FORMAT(`doctors`.`time_from`,'%H:%i') AS `time_from`, TIME_FORMAT(`doctors`.`time_to`,'%H:%i') AS `time_to`, `doctors`.`carer_id` AS `carer_id`, `carers`.`last_name` AS `last_name`, `carers`.`first_name` AS `first_name` FROM `doctors` 
+JOIN `carers` ON `carers`.`id` = `doctors`.`carer_id` 
+ORDER BY `carers`.`last_name`
+
+CREATE VIEW `get_service_carers` AS
+SELECT `service_carers`.`service_id` AS `service_id`, `carers`.`last_name` AS `last_name` FROM `service_carers` 
+JOIN `carers` ON `service_carers`.`carer_id` = `carers`.`id` 
+ORDER BY `carers`.`last_name`
+
+CREATE VIEW `get_work_hours` AS
+SELECT `work_hours`.`day` AS `day`, TIME_FORMAT(`work_hours`.`time_from`,'%H:%i') AS `time_from`, TIME_FORMAT(`work_hours`.`time_to`,'%H:%i') AS `time_to`, `work_hours`.`day_hours` AS `day_hours`, `work_hours`.`carer_id` AS `carer_id`, `carers`.`last_name` AS `last_name`, `carers`.`first_name` AS `first_name` FROM `work_hours` 
+JOIN `carers` ON `carers`.`id` = `work_hours`.`carer_id` 
+ORDER BY `carers`.`last_name`

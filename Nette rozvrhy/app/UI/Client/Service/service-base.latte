@@ -1,0 +1,45 @@
+
+<form n:name=$form id ="serviceForm" class=form>
+	<ul class="errors" n:ifcontent>
+		<li n:foreach="$form->getOwnErrors() as $error">{$error}</li>
+	</ul>
+        
+        <div class="row">
+            <!-- Vykreslí prvky formuláře kromě tlačítek -->
+            <div n:foreach="$form->getControls() as $input"  class="mb-3 {$input->getOption(div) } " 
+                    n:if="($input->getOption(type) !== hidden) && ($input->getOption(type) !== button)  ">
+                    {label $input /}
+                    {input $input}
+                    {inputError $input}
+            </div>
+
+            <!-- V případě plovoucí služby -->
+            <div n:if="$float == 1" class="col-4">   
+                <h6 class="pt-1">Vybrané dny:</h6>
+                <table  class="table table-bordered">
+                    <tr>
+                        <td><span class="me-3" n:foreach="$floatDays as $item" >{$item->float_days}</span></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="w-100"></div>
+            
+            <!-- Tlačítka -->
+            <div n:foreach="$form->getControls() as $input" class="mb-3 {$input->getOption(div) } "
+                 n:if="($input->getOption(type) !== hidden) && ($input->getOption(type) == button) ">
+
+                    {label $input /}
+                    {input $input}
+
+            </div>
+            <div class="col-2 mb-3">
+                <a n:href="Edit:edit $form['client_id']->value" class="btn btn-sm btn-outline-secondary" >Zpět na klienta</a>
+            </div>
+        
+        </div>
+
+
+</form>
+
+

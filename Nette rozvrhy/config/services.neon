@@ -2,9 +2,6 @@ services:
 	- App\Core\RouterFactory::createRouter
 	- App\UI\Accessory\AuthorizatorFactory::create
 	- Nette\Http\UrlScript
-	- App\UI\Carer\Edit\WorkHoursFormFactory
-	- App\UI\Carer\Edit\DoctorsFormFactory
-	- App\UI\Addresses\AddressesFormFactory         
 
 	security.passwords: Nette\Security\Passwords(::PASSWORD_BCRYPT, [cost: 12])
 

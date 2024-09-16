@@ -9,7 +9,7 @@ application:
 
 
 database:
-	dsn: 'mysql:host=127.0.0.1;dbname=new_schedule'
+	dsn: 'mysql:host=127.0.0.1;dbname=dev_schedule'
 	user: 'root'
 	password: ''
 

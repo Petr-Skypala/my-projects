@@ -1,0 +1,84 @@
+<!-- Klienti -->
+
+{block content}
+{block title}<h1 class="d-none">Editace</h1>{/block}
+
+<div class="container-sm bg-light vh-100">
+
+        <div class="row mb-5">
+            <!-- Postranní navigace -->
+            <div class="col-2 vh-100 overflow-auto">
+                <div class="list-group" id="side-nav">
+                    {foreach $clients as $client}
+                        <a n:href="Edit:edit $client->id" class="list-group-item list-group-item-action {if $client->id == $actualId}active{/if} "  aria-current="true">{$client->last_name} {$client->first_name}</a>
+                    {/foreach}    
+                </div>
+            </div>
+                
+            <!-- Formuláře -->
+            <div class="col-10">
+                
+                <div class="row">
+
+                    <div class="col-md-6" id="" >
+                        <h4 class="pt-3">Základní údaje</h4>
+                        {control editForm}
+
+
+                    </div>
+                        
+                        
+
+                    <div class="col-md-6" id="" >
+                        <h4 class="pt-3">Adresy</h4>
+                        {control addressForm}
+                    </div>   
+
+                </div>         
+                    
+                    
+                <div class="mb-4">
+                    <hr class="my-0 py-0">
+                </div>
+                <div class="row">
+
+                    <div class="col-md-10" id="" >
+
+                        <div class="d-flex justify-content-between mb-3">
+                        <h4>Seznam služeb</h4>
+                        <a n:href="Service:create $actualId" class="btn btn-outline-secondary mb-0 ">Vložit novou službu</a>
+                        </div>
+
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Den</th>
+                                <th>Název</th>
+                                <th>Čas od</th>
+                                <th>Čas do</th>
+                            </tr>
+                            {foreach $services as $service}
+                                <tr>
+                                    <td>{$service->day}</td>
+                                    <td><a n:href="Service:edit $service->id"> {$service->title}</a></td>
+                                    <td>{$service->time_from}</td>
+                                    <td>{$service->time_to}</td>
+                                </tr>
+                                
+                            {/foreach}    
+                        </table>
+
+
+                    </div>
+                        
+                        
+
+
+                </div>         
+                    
+
+
+            </div>
+                        
+        </div>
+
+</div>

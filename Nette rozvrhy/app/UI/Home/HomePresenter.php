@@ -6,7 +6,7 @@ namespace App\UI\Home;
 
 use Nette;
 
-
+#[Requires(sameOrigin: true)]
 final class HomePresenter extends Nette\Application\UI\Presenter
 {
     /**

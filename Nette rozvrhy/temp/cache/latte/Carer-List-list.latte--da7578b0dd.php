@@ -32,7 +32,7 @@ final class Template_da7578b0dd extends Latte\Runtime\Template
 		extract($this->params);
 
 		if (!$this->getReferringTemplate() || $this->getReferenceType() === 'extends') {
-			foreach (array_intersect_key(['carer_id' => '6', 'listItems' => '6', 'item' => '20'], $this->params) as $ʟ_v => $ʟ_l) {
+			foreach (array_intersect_key(['carer_id' => '7', 'listItems' => '7', 'item' => '22'], $this->params) as $ʟ_v => $ʟ_l) {
 				trigger_error("Variable \$$ʟ_v overwritten in foreach on line $ʟ_l");
 			}
 		}
@@ -52,14 +52,15 @@ final class Template_da7578b0dd extends Latte\Runtime\Template
 ';
 		$this->renderBlock('title', get_defined_vars()) /* line 4 */;
 		echo '    
+    <!-- Seskupí pracovní doby podle id pečovatelky -->
 ';
-		foreach (($this->filters->group)($list, 'carer_id') as $carer_id => $listItems) /* line 6 */ {
+		foreach (($this->filters->group)($list, 'carer_id') as $carer_id => $listItems) /* line 7 */ {
 			echo '        <a href="';
-			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Edit:edit', [$carer_id])) /* line 7 */;
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Edit:edit', [$carer_id])) /* line 8 */;
 			echo '" class="link-dark text-decoration-none">   <h5>';
-			echo LR\Filters::escapeHtmlText($carers[$carer_id]->last_name) /* line 7 */;
+			echo LR\Filters::escapeHtmlText($carers[$carer_id]->last_name) /* line 8 */;
 			echo ' ';
-			echo LR\Filters::escapeHtmlText($carers[$carer_id]->first_name) /* line 7 */;
+			echo LR\Filters::escapeHtmlText($carers[$carer_id]->first_name) /* line 8 */;
 			echo '</h5></a>                        
         <div class="row">
             <div class="col-1">
@@ -73,20 +74,21 @@ final class Template_da7578b0dd extends Latte\Runtime\Template
                         <th>Čas do</th>
                         <th>Denní úvazek</th>
                     </tr>
+                        <!-- Vypíše všechny pracovní dny -->
 ';
-			foreach ($listItems as $item) /* line 20 */ {
+			foreach (($this->filters->sort)($listItems, by: 'day_order') as $item) /* line 22 */ {
 				echo '                            <tr>
                                 <td>';
-				echo LR\Filters::escapeHtmlText($item->day) /* line 22 */;
+				echo LR\Filters::escapeHtmlText($item->day) /* line 24 */;
 				echo '</td>
                                 <td>';
-				echo LR\Filters::escapeHtmlText($item->time_from) /* line 23 */;
+				echo LR\Filters::escapeHtmlText($item->time_from) /* line 25 */;
 				echo '</td>
                                 <td>';
-				echo LR\Filters::escapeHtmlText($item->time_to) /* line 24 */;
+				echo LR\Filters::escapeHtmlText($item->time_to) /* line 26 */;
 				echo '</td>
                                 <td>';
-				echo LR\Filters::escapeHtmlText($item->day_hours) /* line 25 */;
+				echo LR\Filters::escapeHtmlText($item->day_hours) /* line 27 */;
 				echo '</td>
                             </tr>
 ';

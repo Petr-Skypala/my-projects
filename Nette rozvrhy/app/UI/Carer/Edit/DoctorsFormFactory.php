@@ -9,7 +9,7 @@ use Nette\Application\UI\Control;
 use App\UI\Accessory\DbFacade;
 
 
-
+#[Requires(sameOrigin: true)]
 final class DoctorsFormFactory extends Control
 {
     /**
@@ -18,11 +18,12 @@ final class DoctorsFormFactory extends Control
      */
     public function __construct(
         private DbFacade $db
-
     )  {
     }
-    
-    
+    /**
+     * Vygeneruje formulář pro vkládání doktorů
+     * @return Form
+     */
     public function create(): Form
     {
         $form = new Form;
@@ -37,33 +38,25 @@ final class DoctorsFormFactory extends Control
                     ])
                 ->setPrompt('Zvolte den')
                 ->setHtmlAttribute('class', 'w-100 form-control form-select form-select-sm');
-        
         $form->addTime('time_from','Čas od:')
 		->setRequired()
                 ->setHtmlAttribute('class', 'w-100 form-control form-control-sm');
-                //->setFormat('H:i');
         $form->addTime('time_to', 'Čas do:')
 		->setRequired()
                 ->setHtmlAttribute('class', 'w-100 form-control form-control-sm');
-                //->setFormat('H:i');
-        
-
         $form->addInteger('id')
                 ->setHtmlType('hidden');
         $form->addSubmit('send', 'Uložit')
                 ->setHtmlAttribute('class', ' btn btn-sm btn-outline-secondary');
-
         $form->addInteger('carer_id')
-                ->setRequired()
                 ->setHtmlAttribute('class', 'd-none');
         
         $form->onValidate[] = $this->validateDoctorsForm(...);
         $form->onSuccess[] = $this->doctorsFormSucceeded(...);
         return $form;
-        
     }
     /**
-     * Zvaliduje čas co nesmí být dříve než čas od
+     * Zvaliduje čas do nesmí být dříve než čas od
      * @param Form $form
      * @return void
      */
@@ -85,25 +78,30 @@ final class DoctorsFormFactory extends Control
      */
     private function doctorsFormSucceeded(Form $form, array $data): void
     {
+        // Kontrola jestli je vybraná pečovatelka
+        if (!$data['carer_id']) {
             
-          //  print_r($data);
+            $form->getPresenter()->flashMessage("Vyberte osobu", 'alert-warning');
+            $form->getPresenter()->redirect('Edit:edit');
+        }
+        
         $this->db->insert('doctors', $data);
             
         $form->getPresenter()->redirect(':Carer:Edit:edit', $data['carer_id']);            
     }
-
+    /**
+     * Vrátí doktory pro jednu pečovatelku
+     * @param type $carer
+     * @return type
+     */
     public function getDoctors($carer)
     {
         return $carer->related('doctors')
                 ->select('TIME_FORMAT(time_from, "%H:%i") AS time_from')
                 ->select('TIME_FORMAT(time_to, "%H:%i") AS time_to')
-                ->select('day')
-                ->select('id')
+                ->select('day, id')
                 ->order('day')
                 ->order('time_from')
                 ->fetchAll();
-        
     }
-    
-    
 }

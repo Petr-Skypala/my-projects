@@ -7,24 +7,19 @@ namespace App\UI\Carer\Edit;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Control;
 use App\UI\Accessory\DbFacade;
-use Nette\Database\Explorer;
 
-
+#[Requires(sameOrigin: true)]
 final class WorkHoursFormFactory extends Control
 {
     /**
      * Konstruktor
-     * @param Explorer $database
      * @param DbFacade $db
      */
     public function __construct(
-        private Explorer $database,
         private DbFacade $db
 
     )  {
     }
-    
-    
     /**
      * Vytvoří formulář pro pracovní dobu
      * @param string $day
@@ -83,7 +78,7 @@ final class WorkHoursFormFactory extends Control
         }
     }
     /**
-     * Po úspěšném vyplnění formuláře vloží nebo upraví pracovní dobu
+     * Po vyplnění formuláře vloží nebo upraví pracovní dobu
      * @param Form $form
      * @param array $data
      * @return void
@@ -91,15 +86,22 @@ final class WorkHoursFormFactory extends Control
     private function dayFormSucceeded(Form $form, array $data): void
     {
         $id = $data['id'];
+
         if ($id) {
+
             $workHours = $this->db->getById('work_hours', $id);
             
             $workHours->update($data);
-            //$form->getPresenter()->redirect(':Home:default');
-            //$this->presenter->redirect('Home:default');
 
-        } else
-        {
+        } else {
+        
+            // Kontrola jestli je vybraná pečovatelka
+            if (!$data['carer_id']) {
+                
+                    $form->getPresenter()->flashMessage("Vyberte osobu", 'alert-warning');
+                    $form->getPresenter()->redirect('Edit:edit');
+                }
+
             $this->db->insert('work_hours', $data);
         }
     }
@@ -116,24 +118,8 @@ final class WorkHoursFormFactory extends Control
                 ->where('day', $day)
                 ->select('TIME_FORMAT(time_from, "%H:%i") AS time_from')
                 ->select('TIME_FORMAT(time_to, "%H:%i") AS time_to')
-                ->select('day_hours')
-                ->select('id')
+                ->select('day_hours, id')
                 ->fetch();
         
-    }
-    /**
-     * Vrátí všechny pracovní doby
-     * @return type
-     */
-    public function getAllItems()
-    {
-        return $this->db->getAll('work_hours')
-                ->select('TIME_FORMAT(work_hours.time_from, "%H:%i") AS time_from')
-                ->select('TIME_FORMAT(time_to, "%H:%i") AS time_to')
-                ->select('day_hours')
-                ->select('day')
-                ->select('id')
-                ->select('carer_id')
-                ->fetchAll();
     }
 }

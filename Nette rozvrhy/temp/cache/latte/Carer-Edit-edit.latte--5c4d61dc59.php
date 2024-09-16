@@ -23,7 +23,10 @@ final class Template_5c4d61dc59 extends Latte\Runtime\Template
 			return;
 		}
 
-		$this->renderBlock('content', get_defined_vars()) /* line 1 */;
+		echo '<!-- Pečovatelky -->
+
+';
+		$this->renderBlock('content', get_defined_vars()) /* line 3 */;
 	}
 
 
@@ -32,7 +35,7 @@ final class Template_5c4d61dc59 extends Latte\Runtime\Template
 		extract($this->params);
 
 		if (!$this->getReferringTemplate() || $this->getReferenceType() === 'extends') {
-			foreach (array_intersect_key(['carer' => '10', 'doctor' => '70'], $this->params) as $ʟ_v => $ʟ_l) {
+			foreach (array_intersect_key(['carer' => '12', 'doctor' => '72'], $this->params) as $ʟ_v => $ʟ_l) {
 				trigger_error("Variable \$$ʟ_v overwritten in foreach on line $ʟ_l");
 			}
 		}
@@ -40,34 +43,34 @@ final class Template_5c4d61dc59 extends Latte\Runtime\Template
 	}
 
 
-	/** {block content} on line 1 */
+	/** {block content} on line 3 */
 	public function blockContent(array $ʟ_args): void
 	{
 		extract($this->params);
 		extract($ʟ_args);
 		unset($ʟ_args);
 
-		$this->renderBlock('title', get_defined_vars()) /* line 2 */;
+		$this->renderBlock('title', get_defined_vars()) /* line 4 */;
 		echo '
 
 <div class="container-sm bg-light vh-100">
 
         <div class="row mb-5">
             <!-- Postranní navigace -->
-            <div class="col-2">
+            <div class="col-2 vh-100 overflow-auto">
                 <div class="list-group" id="side-nav">
 ';
-		foreach ($carers as $carer) /* line 10 */ {
+		foreach ($carers as $carer) /* line 12 */ {
 			echo '                        <a href="';
-			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Edit:edit', [$carer->id])) /* line 11 */;
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Edit:edit', [$carer->id])) /* line 13 */;
 			echo '" class="list-group-item list-group-item-action ';
-			if ($carer->id == $actualId) /* line 11 */ {
+			if ($carer->id == $actualId) /* line 13 */ {
 				echo 'active';
 			}
 			echo ' "  aria-current="true">';
-			echo LR\Filters::escapeHtmlText($carer->last_name) /* line 11 */;
+			echo LR\Filters::escapeHtmlText($carer->last_name) /* line 13 */;
 			echo ' ';
-			echo LR\Filters::escapeHtmlText($carer->first_name) /* line 11 */;
+			echo LR\Filters::escapeHtmlText($carer->first_name) /* line 13 */;
 			echo '</a>
 ';
 
@@ -85,7 +88,7 @@ final class Template_5c4d61dc59 extends Latte\Runtime\Template
 ';
 		$ʟ_tmp = $this->global->uiControl->getComponent('editForm');
 		if ($ʟ_tmp instanceof Nette\Application\UI\Renderable) $ʟ_tmp->redrawControl(null, false);
-		$ʟ_tmp->render() /* line 22 */;
+		$ʟ_tmp->render() /* line 24 */;
 
 		echo '
 
@@ -94,7 +97,7 @@ final class Template_5c4d61dc59 extends Latte\Runtime\Template
 ';
 		$ʟ_tmp = $this->global->uiControl->getComponent('addressForm');
 		if ($ʟ_tmp instanceof Nette\Application\UI\Renderable) $ʟ_tmp->redrawControl(null, false);
-		$ʟ_tmp->render() /* line 27 */;
+		$ʟ_tmp->render() /* line 29 */;
 
 		echo '                    </div>
                 </div>
@@ -119,23 +122,23 @@ final class Template_5c4d61dc59 extends Latte\Runtime\Template
 ';
 		$ʟ_tmp = $this->global->uiControl->getComponent('mondayForm');
 		if ($ʟ_tmp instanceof Nette\Application\UI\Renderable) $ʟ_tmp->redrawControl(null, false);
-		$ʟ_tmp->render() /* line 48 */;
+		$ʟ_tmp->render() /* line 50 */;
 
 		$ʟ_tmp = $this->global->uiControl->getComponent('tuesdayForm');
 		if ($ʟ_tmp instanceof Nette\Application\UI\Renderable) $ʟ_tmp->redrawControl(null, false);
-		$ʟ_tmp->render() /* line 49 */;
+		$ʟ_tmp->render() /* line 51 */;
 
 		$ʟ_tmp = $this->global->uiControl->getComponent('wednesdayForm');
 		if ($ʟ_tmp instanceof Nette\Application\UI\Renderable) $ʟ_tmp->redrawControl(null, false);
-		$ʟ_tmp->render() /* line 50 */;
+		$ʟ_tmp->render() /* line 52 */;
 
 		$ʟ_tmp = $this->global->uiControl->getComponent('thursdayForm');
 		if ($ʟ_tmp instanceof Nette\Application\UI\Renderable) $ʟ_tmp->redrawControl(null, false);
-		$ʟ_tmp->render() /* line 51 */;
+		$ʟ_tmp->render() /* line 53 */;
 
 		$ʟ_tmp = $this->global->uiControl->getComponent('fridayForm');
 		if ($ʟ_tmp instanceof Nette\Application\UI\Renderable) $ʟ_tmp->redrawControl(null, false);
-		$ʟ_tmp->render() /* line 52 */;
+		$ʟ_tmp->render() /* line 54 */;
 
 		echo '
                     </div>
@@ -150,7 +153,7 @@ final class Template_5c4d61dc59 extends Latte\Runtime\Template
 ';
 		$ʟ_tmp = $this->global->uiControl->getComponent('doctorsForm');
 		if ($ʟ_tmp instanceof Nette\Application\UI\Renderable) $ʟ_tmp->redrawControl(null, false);
-		$ʟ_tmp->render() /* line 63 */;
+		$ʟ_tmp->render() /* line 65 */;
 
 		echo '                    </div>
                     <div class="col-md-6" id="" >
@@ -158,20 +161,20 @@ final class Template_5c4d61dc59 extends Latte\Runtime\Template
                         <table class="table table-hover table-sm table-bordered">
                             <tbody>
 ';
-		if ($doctors) /* line 69 */ {
-			foreach ($doctors as $doctor) /* line 70 */ {
+		if ($doctors) /* line 71 */ {
+			foreach ($doctors as $doctor) /* line 72 */ {
 				echo '                                    <tr>
                                         <td>';
-				echo LR\Filters::escapeHtmlText($doctor->day) /* line 72 */;
+				echo LR\Filters::escapeHtmlText($doctor->day) /* line 74 */;
 				echo '</td>
                                         <td>';
-				echo LR\Filters::escapeHtmlText($doctor->time_from) /* line 73 */;
+				echo LR\Filters::escapeHtmlText($doctor->time_from) /* line 75 */;
 				echo '</td>
                                         <td>';
-				echo LR\Filters::escapeHtmlText($doctor->time_to) /* line 74 */;
+				echo LR\Filters::escapeHtmlText($doctor->time_to) /* line 76 */;
 				echo '</td>
                                         <td><a href="';
-				echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Edit:deleteDoctor', ['id' => $doctor->id])) /* line 75 */;
+				echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Edit:deleteDoctor', ['id' => $doctor->id])) /* line 77 */;
 				echo '">Smazat</a></td>
                                     </tr>
 
@@ -194,7 +197,7 @@ final class Template_5c4d61dc59 extends Latte\Runtime\Template
 	}
 
 
-	/** {block title} on line 2 */
+	/** {block title} on line 4 */
 	public function blockTitle(array $ʟ_args): void
 	{
 		echo '<h1 class="d-none">Editace</h1>';

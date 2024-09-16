@@ -1,68 +1,48 @@
 <?php
 
+// Pečovatelky
+
 declare(strict_types=1);
 
 namespace App\UI\Carer\Create;
 
 use Nette;
 use Nette\Application\UI\Form;
+use App\UI\Carer\Edit\CarersFormFactory;
 
-use Nette\Database\Explorer;
-
+#[Requires(sameOrigin: true)]
 final class CreatePresenter extends Nette\Application\UI\Presenter
 {
     /**
      * Konstruktor
-     * @param Explorer $database
+     * @param CarersFormFactory $carers
      */
     public function __construct(
-        private Explorer $database
+        private CarersFormFactory $carers
         
     )  {
         parent::__construct();
     }
     /**
-     * Vrátí formulář pro zadání nové pečovatelky
-     * @return Form
+     * Ověření uživatele
      */
-    protected function createComponentCreateForm(): Form
+    protected function startup()
     {
-	$form = new Form;
-        
-	$form->addText('first_name', 'Jméno:')
-		->setRequired()
-                ->addRule($form::Pattern, 'Jméno musí obsahovat pouze písmena', '[^+=\-%$<>\\\/?!&@;`\'"()[\]{}*\^#§]*')
-                ->setHtmlAttribute('class', 'form-control form-control-sm')
-                ->setMaxLength(30);
-	$form->addText('last_name', 'Příjmení:')
-		->setRequired()
-                ->addRule($form::Pattern, 'Jméno musí obsahovat pouze písmena', '[^+=\-%$<>\\\/?!&@;`\'"()[\]{}*\^#§]*')
-                ->setHtmlAttribute('class', 'form-control form-control-sm')
-                ->setMaxLength(40);
-        $form->addInteger('week_hours', 'Týdenní úvazek:')
-                ->addRule($form::Pattern, 'Pole musí obsahovat pouze číslici', '[^+=\-%$<>\\\/?!&@;`\'"()[\]{}*\^#§]*')
-                ->setHtmlAttribute('class', 'form-control form-control-sm w-50')
-                ->setRequired()
-                ->addRule($form::Range, 'Týdenní úvazek musí být v rozsahu od %d do %d.', [0, Week_hours]);
-                
-
-	$form->addSubmit('send', 'Uložit')
-                ->setHtmlAttribute('class', ' btn btn-sm btn-outline-secondary');
-
-        $form->onSuccess[] = $this->createFormSucceeded(...);
-
-	return $form;
+	parent::startup();
+	if (!$this->getUser()->isLoggedIn()) {
+		$this->redirect(':User:Sign:in');
+	}
+        if (!$this->getUser()->isAllowed('carers', 'edit')) {
+                $this->flashMessage('Nemáte dostatečná práva.', 'alert-warning');
+                $this->redirect(':Home:default');
+	}
     }
     /**
-     * Vloží novou pečovatelku do databáze
-     * @param array $data
-     * @return void
+     * Vykreslí formulář nová pečovatelka
+     * @return Form
      */
-    private function createFormSucceeded(array $data): void
+    protected function createComponentCreateForm(): Form    
     {
-        $newId = $this->database->table('carers')->insert($data)->getPrimary();
-        $this->redirect('Edit:edit', $newId);
+        return $this->carers->create();
     }
-    
-    
 }

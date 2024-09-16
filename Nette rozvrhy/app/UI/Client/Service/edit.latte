@@ -1,0 +1,33 @@
+{block content}
+
+<div class="container-sm bg-light vh-100">
+    <h4 n:block=title>Editace služby</h4>
+    
+    {include service-base.latte, form: serviceForm}
+    <hr>
+    <h4>Pečovatelky ke službě</h4>
+    <div class="row">
+        <!-- Postranní navigace -->
+        <div class="col-3 overflow-auto" style="height: 400px">
+            <div class="list-group" id="side-nav">
+                {foreach $carers as $carer}
+                    <a n:href="Carers:add $serviceId, $carer->id" class="list-group-item list-group-item-action ">{$carer->last_name} {$carer->first_name}</a>
+                {/foreach}    
+            </div>
+        </div>
+        <div class="col-9">
+            <h5>Přiřazené pečovatelky:</h5>
+            <div class="row">
+                <div n:foreach="($serviceCarers) as $item"  class="p-0 mb-3 col-md-3">
+                    <a n:href="Carers:remove $serviceId, $item->id" class="d-block text-center text-primary px-3 py-2 border border-1 border-secondary rounded text-decoration-none"> {$item->last_name} {$item->first_name}</a>
+                </div>
+            </div>
+                <a n:href="Carers:addAll $serviceId" class="btn btn-outline-secondary m-0">Vložit vše</a>
+                <a n:href="Carers:removeAll $serviceId" class="btn btn-outline-secondary m-0">Odebrat vše</a>
+        </div>
+            
+        
+    </div>
+</div>
+
+

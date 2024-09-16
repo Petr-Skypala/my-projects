@@ -1,3 +1,5 @@
+<!-- Pečovatelky -->
+
 {block content}
 {block title}<h1 class="d-none">Editace</h1>{/block}
 
@@ -5,7 +7,7 @@
 
         <div class="row mb-5">
             <!-- Postranní navigace -->
-            <div class="col-2">
+            <div class="col-2 vh-100 overflow-auto">
                 <div class="list-group" id="side-nav">
                     {foreach $carers as $carer}
                         <a n:href="Edit:edit $carer->id" class="list-group-item list-group-item-action {if $carer->id == $actualId}active{/if} "  aria-current="true">{$carer->last_name} {$carer->first_name}</a>

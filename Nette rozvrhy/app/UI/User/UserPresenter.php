@@ -6,6 +6,7 @@ use Nette\Application\UI\Form;
 use Nette\Security\Passwords;
 use App\UI\Accessory\DbFacade;
 
+#[Requires(sameOrigin: true)]
 final class UserPresenter extends Nette\Application\UI\Presenter
 {
     /**
@@ -20,7 +21,7 @@ final class UserPresenter extends Nette\Application\UI\Presenter
         parent::__construct();
     }
     /**
-     * Ověří, zdali je uživatel přihlášený
+     * Ověření uživatele
      */
     protected function startup()
     {

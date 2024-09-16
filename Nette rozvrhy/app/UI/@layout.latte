@@ -10,6 +10,11 @@
             form label {
                 font-weight: bold;
             }
+            
+            .alert {
+                margin-bottom: 0;
+                
+            }
         </style>
 </head>
 
@@ -29,6 +34,9 @@
 
                     {if $user->isAllowed('carers', 'view')}
                     <li class="nav-item"><a n:href=":Carer:Edit:edit" class="nav-link text-white {if isModuleCurrent('Carer')}active{/if}">Pečovatelky</a></li>
+                    {/if}
+                    {if $user->isAllowed('clients', 'view')}
+                    <li class="nav-item"><a n:href=":Client:Edit:edit" class="nav-link text-white {if isModuleCurrent('Client')}active{/if}">Klienti</a></li>
                     {/if}
 
                 </ul>
@@ -59,18 +67,43 @@
                     <a class="nav-link {if isLinkCurrent('Edit:*')}active{/if}" n:href="Edit:edit" role="tab" aria-controls="editace" aria-selected="true">Editace</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {if isLinkCurrent('Create:*')}active{/if}" n:href="Create:create" role="tab" aria-controls="nová pečovatelka" aria-selected="false">Nová pečovatelka</a>
+                    <a class="nav-link {if isLinkCurrent('List:*')}active{/if}" n:href="List:list" role="tab" aria-controls="podrobný přehled" aria-selected="false">Podrobný přehled</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {if isLinkCurrent('List:*')}active{/if}" n:href="List:list" role="tab" aria-controls="podrobný přehled" aria-selected="false">Podrobný přehled</a>
+                    <a class="nav-link {if isLinkCurrent('Doctors:*')}active{/if}" n:href="Doctors:doctors" role="tab" aria-controls="podrobný přehled" aria-selected="false">Návštěvy u lékařů</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {if isLinkCurrent('Create:*')}active{/if}" n:href="Create:create" role="tab" aria-controls="nová pečovatelka" aria-selected="false">Nová pečovatelka</a>
                 </li>
             </ul>
         </div>            
-        {/if}
+        {/if} <!-- Pečovatelky -->
+
+        <!-- Navigační menu pro klienti -->
+        {if isModuleCurrent('Client')}
+        <div class="container-sm pb-3 bg-light">
+            <ul class="nav nav-tabs" id="navigace" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link {if isLinkCurrent('Edit:*') || isLinkCurrent('Service:*')}active{/if}" n:href="Edit:edit" role="tab" aria-controls="editace" aria-selected="true">Editace</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {if isLinkCurrent('List:list')}active{/if}" n:href="List:list" role="tab" aria-controls="podrobný přehled" aria-selected="false">Fixní služby</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {if isLinkCurrent('List:float')}active{/if}" n:href="List:float" role="tab" aria-controls="podrobný přehled" aria-selected="false">Plovoucí služby</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {if isLinkCurrent('Create:*')}active{/if}" n:href="Create:create" role="tab" aria-controls="podrobný přehled" aria-selected="false">Nový klient</a>
+                </li>
+            </ul>
+        </div>            
+        {/if} <!-- Klienti -->
+
+        
             
     </header>
         
-        <div class="container-sm">
+        <div class="container-sm bg-light">
             <div n:foreach="$flashes as $flash" n:class="alert, $flash->type">{$flash->message}</div>
         </div>
         
@@ -96,8 +129,7 @@
               
              
             })
-            
-            
+
         </script>
 	{/block}
 </body>
