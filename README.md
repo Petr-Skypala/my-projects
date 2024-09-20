@@ -19,6 +19,7 @@
 - Připravené role: Pečovatelka, Koordinátorka, admin
 
 ## Obecné informace
+- Aplikace je spustitelná na webovém serveru Apache v OS Windows (XAMPP)
 - Další části aplikace jsou ve vývoji
 - Nově vložená adresa vygeneruje kombinace známých adres pro získání času přejezdu
 - Ke kombinacím adres v tabulce travel_times bude stahovat čas přejezdu z Google Maps Directions
