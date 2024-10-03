@@ -17,9 +17,14 @@
 - U plovoucí sledujeme dny, kdy může proběhnout, interval začátku od - do a délku
 - Ke všem službám se přiřazují pečovatelky, které mohou docházet
 - Připravené role: Pečovatelka, Koordinátorka, admin
-
-## Obecné informace
-- Aplikace je spustitelná na webovém serveru Apache v OS Windows (XAMPP)
-- Další části aplikace jsou ve vývoji
 - Nově vložená adresa vygeneruje kombinace známých adres pro získání času přejezdu
-- Ke kombinacím adres v tabulce travel_times bude stahovat čas přejezdu z Google Maps Directions
+- Aplikace je spustitelná na webovém serveru Apache v OS Windows (XAMPP)
+
+## Steamsales
+- Aplikace zobrazuje probíhající nebo nejbližší plánovaný výprodej
+- V admin části mohou přihlášení uživatelé vkládat nebo upravovat výprodeje
+- Role admin umožňuje také vkládat a upravovat uživatele
+- Přihlašovací jméno: admin (test1234)
+- Hesla ostatních uživatelů jsou stejná
+- Aplikace je spustitelná na webovém serveru Apache v OS Windows (XAMPP)
+- Vyžaduje PHP 7.4 a Nette 3.x

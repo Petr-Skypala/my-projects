@@ -1,0 +1,43 @@
+{block content}
+
+<div class="container-sm bg-white vh-100" >
+    <h3 class="py-3">{$heading}</h3>
+    
+    <!-- Název výprodeje -->
+    <H4 class="d-inline-block py-2 px-3" style="background-color: {$sale->color|noescape}" >{$sale->name}</h4>
+    <br>
+    <span class="fw-bold d-inline-flex my-3">Tagy: </span>
+    
+    <!-- Tagy výprodeje -->
+    {foreach $tags as $tag}
+	<span class="me-2">{$tag->tag->name} </span>
+    {/foreach}
+
+
+    <p class="lead">{$footer} </p>
+
+    <!-- JS odpočet -->
+    <div id="cdt" class="ms-5"><span id="cdt"></span></div>
+
+    <span class="text-muted">Dnů/hodin/minut/vteřin</span>
+
+
+<script type="text/javascript">
+
+    var starts = {$starts};
+    var ends = {$ends};
+
+  $(function(){
+	 $("#cdt").countdowntimer({
+		 startDate : starts,
+		 dateAndTime : ends,
+		 displayFormat : "DHMS",
+		 size : "lg"
+	 });
+  });
+
+</script>
+
+
+
+</div>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://keith-wood.name/countdownBasics.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="./jQuery Countdown_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K7BCZ5S02P');
+</script>
+
+<link rel="canonical" href="http://keith-wood.name/countdownBasics.html">
+<title>jQuery Countdown</title>
+<link rel="stylesheet" href="./jQuery Countdown_files/jquery.countdown.css">
+<style type="text/css">
+body > iframe { display: none; }
+
+#defaultCountdown { width: 240px; height: 45px; }
+</style>
+<script src="./jQuery Countdown_files/jquery.min.js.stáhnout"></script>
+<script src="./jQuery Countdown_files/jquery.plugin.js.stáhnout"></script>
+<script src="./jQuery Countdown_files/jquery.countdown.js.stáhnout"></script>
+<script>
+$(function () {
+	var austDay = new Date();
+	austDay = new Date(austDay.getFullYear() + 1, 1 - 1, 26);
+	$('#defaultCountdown').countdown({until: austDay});
+	$('#year').text(austDay.getFullYear());
+});
+</script>
+</head>
+<body>
+<h1>jQuery Countdown Basics</h1>
+<p>This page demonstrates the very basics of the
+	<a href="http://keith-wood.name/countdown.html">jQuery Countdown plugin</a>.
+	It contains the minimum requirements for using the plugin and
+	can be used as the basis for your own experimentation.</p>
+<p>For more detail see the <a href="http://keith-wood.name/countdownRef.html">documentation reference</a> page.</p>
+<p>Counting down to 26 January <span id="year">2025</span>.</p>
+<div id="defaultCountdown" class="is-countdown"><span class="countdown-row countdown-show4"><span class="countdown-section"><span class="countdown-amount">115</span><span class="countdown-period">Days</span></span><span class="countdown-section"><span class="countdown-amount">9</span><span class="countdown-period">Hours</span></span><span class="countdown-section"><span class="countdown-amount">56</span><span class="countdown-period">Minutes</span></span><span class="countdown-section"><span class="countdown-amount">37</span><span class="countdown-period">Seconds</span></span></span></div>
+
+
+</body></html>

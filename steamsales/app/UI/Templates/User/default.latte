@@ -1,0 +1,44 @@
+{block content}
+
+<div class="container-sm bg-white vh-100">
+    
+    <div class="d-flex justify-content-between align-items-center">
+	<h4 class="py-3" n:block=title>Seznam uživatelů</h4>
+
+	<!-- Formulář pro filtrování -->
+	{include default-base.latte, form: filtrForm}
+
+    </div>
+	<table class="table table-striped">
+	<tr>
+	    <th>Jméno</th>
+	    <th>Uživatelské jméno</th>
+	    <th>Role</th>
+	    <th>Aktivní</th>
+	</tr>
+	    <!-- Vypíše všechny uživatele -->
+	    {foreach ($users) as $user}
+		<tr>
+		    <td><a n:href="User:edit $user->id">{$user->first_name} {$user->last_name}</a></td>
+		    <td>{$user->username}</td>
+		    <td>{$user->role}</td>
+		    <td>{$user->active|replace: '0', 'N'|replace: '1', 'A'}</td>
+		</tr>
+	    {/foreach}
+    </table>
+    
+    <!-- Stránkování -->
+    <ul class="pagination pagination-sm pt-3">
+
+	    <li class="page-item"> <a class="page-link {if !($page > 1)}disabled{/if}" n:href="default, 1" >&laquo</a></li>
+	    <li class="page-item"><a class="page-link {if !($page > 1)}disabled{/if}" n:href="default, $page - 1"><</a></li>
+
+	    <li class="page-item"><span class="page-link"> Stránka {$page} z {$lastPage}</span></li>
+
+	    <li class="page-item"> <a class="page-link {if !($page < $lastPage)}disabled{/if}" n:href="default, $page + 1">></a></li>
+	    <li class="page-item"> <a class="page-link {if !($page < $lastPage)}disabled{/if}" n:href="default, $lastPage">&raquo</a></li>
+
+    </ul>
+    
+</div>
+

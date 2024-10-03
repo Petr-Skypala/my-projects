@@ -1,0 +1,43 @@
+{block content}
+
+<div class="container-sm bg-white vh-100">
+	
+    <div class="d-flex justify-content-between align-items-center">
+	<h4 class="py-3">Administrace výprodejů</h4>
+
+	<!-- Formulář pro filtrování -->
+	{include default-base.latte, form: filtrForm}
+	
+    </div>
+    <table class="table table-striped ">
+	<tr>
+	    <th>Název</th>
+	    <th>Začíná</th>
+	    <th>Končí</th>
+	    <th>Vložil</th>
+	    <th>Založený</th>
+	</tr>
+	<!-- Vypíše všechny výprodeje -->
+	{foreach ($sales) as $item}
+	    <tr>
+		<td><a class="text-decoration-none text-primary" n:href="Edit:edit $item->id">{$item->name}</a></td>
+		<td>{$item->starts|date:'j. n. Y'}</td>
+		<td>{$item->ends|date:'j. n. Y'}</td>
+		<td>{$item->user->first_name} {$item->user->last_name}</td>
+		<td>{$item->created_at|date:'j. n. Y'}</td>
+	    </tr>
+	{/foreach}
+    </table>
+
+    <!-- Stránkování -->
+    <ul class="pagination pagination-sm pt-3">
+	    <li class="page-item"> <a class="page-link {if !($page > 1)}disabled{/if}" n:href="default, 1" >&laquo</a></li>
+	    <li class="page-item"><a class="page-link {if !($page > 1)}disabled{/if}" n:href="default, $page - 1"><</a></li>
+
+	    <li class="page-item"><span class="page-link"> Stránka {$page} z {$lastPage}</span></li>
+
+	    <li class="page-item"> <a class="page-link {if !($page < $lastPage)}disabled{/if}" n:href="default, $page + 1">></a></li>
+	    <li class="page-item"> <a class="page-link {if !($page < $lastPage)}disabled{/if}" n:href="default, $lastPage">&raquo</a></li>
+    </ul>
+    
+</div>

@@ -1,0 +1,22 @@
+
+<form n:name=$form id ="filtrForm" class=form>
+	<ul class="errors" n:ifcontent>
+		<li n:foreach="$form->getOwnErrors() as $error">{$error}</li>
+	</ul>
+        
+        <div class="input-group">
+            <!-- Vykreslí prvky formuláře vč. tlačítek -->
+            {foreach $form->getControls() as $input }
+                    
+                    {label $input /}
+                    {input $input}
+                    {inputError $input}
+            {/foreach}
+
+
+        </div>
+
+
+</form>
+
+

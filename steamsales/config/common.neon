@@ -1,0 +1,30 @@
+parameters: 
+
+
+application:
+	errorPresenter: ErrorPresenter
+	mapping:
+		Home: App\UI\Home\*Presenter
+		Front: App\UI\Front\*Presenter
+		Admin: App\UI\Admin\*Presenter
+		User: App\UI\User\*Presenter
+
+
+database:
+	dsn: 'mysql:host=127.0.0.1;dbname=steam_sales'
+	user: 'root'
+	password: ''
+
+
+latte:
+	strictTypes: yes
+	strictParsing: yes
+	extensions:
+		- App\UI\Accessory\LatteExtension
+
+
+di:
+	export:
+		parameters: no
+		tags: no
+

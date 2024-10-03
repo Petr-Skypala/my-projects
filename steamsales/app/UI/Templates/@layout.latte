@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{$basePath}/bootstrap/css/bootstrap.css">
+<title>{ifset title}{include title|stripHtml}{/ifset}</title>
+
+<!-- Vložené skripty pro odpočet času -->
+<script src="{$basePath}/jQuery/jquery-3.7.1.js"></script>
+<script src="{$basePath}/jQuery/jQuery.countdownTimer.js"></script>
+
+
+</head>
+
+<body class="bg-light">
+    <header>
+        <!-- Hlavní navigační menu -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+ 
+            <div class="navbar-collapse justify-content-around" id="obsah-navigacni-listy">
+                <ul class="navbar-nav nav-pills ms-5 ">
+
+	    {if !$user->isLoggedIn()}
+                    <li class="nav-item"><a n:href=":Front:Sale:default" class="nav-link text-white {if isLinkCurrent(':Front:Sale:*')}active{/if} ">Výprodej</a></li>
+	    {/if}
+	    {if $user->isLoggedIn()}
+		    <li class="nav-item"><a n:href=":Admin:Admin:default" class="nav-link text-white {if isLinkCurrent(':Admin:Admin:*')}active{/if} ">Administrace</a></li>
+		    <li class="nav-item"><a n:href=":Admin:Sale:create" class="nav-link text-white {if isLinkCurrent(':Admin:Sale:*')}active{/if} ">Vložit nový výprodej</a></li>
+		{if $user->isAllowed('users', 'edit') }
+		    <li class="nav-item"><a n:href=":User:User:default" class="nav-link text-white {if isLinkCurrent(':User:User:default')}active{/if} ">Uživatelé</a></li>
+		    <li class="nav-item"><a n:href=":User:User:create" class="nav-link text-white {if isLinkCurrent(':User:User:create')}active{/if} ">Nový uživatel</a></li>
+		{/if}
+	    {/if}
+                </ul>
+
+
+                <div class="d-flex">
+                <ul class="navbar-nav ms-5">
+                    {if $user->isLoggedIn()}
+                    <li class="nav-item"><a n:href=":User:Sign:out" class="nav-link text-white ">Odhlásit</a></li>
+                    {else}
+                    <li class="nav-item"><a class="nav-link text-white" n:href=":User:Sign:in">Přihlásit</a></li>
+                    {/if}
+                </ul>
+                </div>   
+
+            </div>
+        </nav> 
+
+    </header>
+	<div n:foreach="$flashes as $flash" n:class="alert, $flash->type">{$flash->message}</div>
+
+	{include content}
+
+
+
+	{block scripts}
+
+	<script src="https://unpkg.com/nette-forms@3"></script>
+
+	{/block}
+</body>
+</html>
